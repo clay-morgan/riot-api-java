@@ -14,25 +14,21 @@
  * limitations under the License.
  */
 
-package net.rithms.riot.api.endpoints.league.methods;
-
-import java.util.Set;
-
-import com.google.gson.reflect.TypeToken;
+package net.rithms.riot.api.endpoints.match.methods;
 
 import net.rithms.riot.api.ApiConfig;
-import net.rithms.riot.api.endpoints.league.LeagueApiMethod;
-import net.rithms.riot.api.endpoints.league.dto.LeaguePosition;
+import net.rithms.riot.api.UrlParameter;
+import net.rithms.riot.api.endpoints.match.MatchApiMethod;
+import net.rithms.riot.api.endpoints.match.dto.Match;
 import net.rithms.riot.constant.Platform;
 
-public class GetLeaguePositionsBySummonerId extends LeagueApiMethod {
+public class GetAcsMatch extends MatchApiMethod {
 
-	public GetLeaguePositionsBySummonerId(ApiConfig config, Platform platform, String summonerId) {
+	public GetAcsMatch(ApiConfig config, Platform platform, String platformTourney, long matchId, String gameHash) {
 		super(config);
 		setPlatform(platform);
-		setReturnType(new TypeToken<Set<LeaguePosition>>() {
-		}.getType());
-		setUrlBase(platform.getHost() + "/lol/league/v4/positions/by-summoner/" + summonerId);
-		addApiKeyParameter();
+		setReturnType(Match.class);
+		String url = "https://acs.leagueoflegends.com/v1/stats/game/" + platformTourney + "/" + matchId + "?gameHash=" + gameHash;
+		setUrlBase(url);
 	}
 }
