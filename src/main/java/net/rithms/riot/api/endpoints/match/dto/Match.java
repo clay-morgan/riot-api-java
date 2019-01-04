@@ -98,7 +98,7 @@ public @Data class Match extends Dto implements Serializable {
 	 *            Summoner ID
 	 * @return Participant from {@link #getParticipants()} matching {@code summonerId}, or {@code null} if there is no such participant.
 	 */
-	public Participant getParticipantBySummonerId(long summonerId) {
+	public Participant getParticipantBySummonerId(String summonerId) {
 		List<ParticipantIdentity> participantIdentities = getParticipantIdentities();
 		if (participantIdentities != null) {
 			for (ParticipantIdentity participantIdentity : participantIdentities) {
@@ -106,7 +106,7 @@ public @Data class Match extends Dto implements Serializable {
 				if (player == null) {
 					continue;
 				}
-				if (player.getSummonerId() == summonerId) {
+				if (player.getSummonerId().equals(summonerId)) {
 					return getParticipantByParticipantId(participantIdentity.getParticipantId());
 				}
 			}
